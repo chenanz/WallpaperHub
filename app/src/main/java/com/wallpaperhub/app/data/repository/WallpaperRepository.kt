@@ -9,6 +9,7 @@ import com.wallpaperhub.app.data.model.WallpaperDto
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.withContext
+import org.json.JSONArray
 
 /**
  * 壁纸仓库 - 协调远程 API 和本地 Room 数据库
@@ -55,7 +56,7 @@ class WallpaperRepository(private val context: Context) {
 
     fun getFavorites(): Flow<List<WallpaperEntity>> = dao.getFavorites()
 
-    suspend fun toggleFavorite(id: Int, isFavorite: Boolean) {
+    suspend fun toggleFavorite(id: String, isFavorite: Boolean) {
         withContext(Dispatchers.IO) {
             dao.updateFavorite(id, isFavorite)
         }
@@ -113,14 +114,14 @@ class WallpaperRepository(private val context: Context) {
     private fun WallpaperDto.toEntity(): WallpaperEntity = WallpaperEntity(
         id = id,
         url = url,
-        thumbnailUrl = thumbnailUrl,
+        thumbnailUrl = thumbnailUrl ?: "",
         source = source,
-        tags = tags ?: emptyList(),
-        resolution = resolution,
+        tags = JSONArray(tags ?: emptyList()).toString(),
+        resolution = resolution ?: "",
         isR18 = isR18,
         isFavorite = false,
-        localPath = null,
-        createdAt = createdAt
+        localPath = "",
+        createdAt = try { (createdAt ?: "").toLongOrNull() ?: System.currentTimeMillis() } catch (_: Exception) { System.currentTimeMillis() }
     )
 
     companion object {

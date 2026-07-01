@@ -14,7 +14,7 @@ data class WallpaperResponse(
 )
 
 data class WallpaperDto(
-    val id: Int,
+    val id: String,
     val url: String,
     val source: String,
     val tags: List<String>? = emptyList(),

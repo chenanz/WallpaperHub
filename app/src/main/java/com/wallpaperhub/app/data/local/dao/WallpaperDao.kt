@@ -24,7 +24,7 @@ interface WallpaperDao {
 
     // === 单条查询 ===
     @Query("SELECT * FROM wallpapers WHERE id = :id")
-    suspend fun getWallpaperById(id: Int): WallpaperEntity?
+    suspend fun getWallpaperById(id: String): WallpaperEntity?
 
     // === 写入 ===
     @Insert(onConflict = OnConflictStrategy.REPLACE)
@@ -35,11 +35,11 @@ interface WallpaperDao {
 
     // === 更新收藏状态 ===
     @Query("UPDATE wallpapers SET is_favorite = :isFavorite WHERE id = :id")
-    suspend fun updateFavorite(id: Int, isFavorite: Boolean)
+    suspend fun updateFavorite(id: String, isFavorite: Boolean)
 
     // === 更新本地路径（离线缓存） ===
     @Query("UPDATE wallpapers SET local_path = :localPath WHERE id = :id")
-    suspend fun updateLocalPath(id: Int, localPath: String)
+    suspend fun updateLocalPath(id: String, localPath: String)
 
     // === 统计 ===
     @Query("SELECT COUNT(*) FROM wallpapers WHERE is_r18 = 0")
@@ -52,7 +52,7 @@ interface WallpaperDao {
     suspend fun getFavoriteCount(): Int
 
     // === 清理 ===
-    @Query("DELETE FROM wallpapers WHERE is_favorite = 0 AND local_path IS NULL")
+    @Query("DELETE FROM wallpapers WHERE is_favorite = 0 AND local_path = ''")
     suspend fun clearUnfavoritedUnCached(): Int
 
     @Query("DELETE FROM wallpapers")

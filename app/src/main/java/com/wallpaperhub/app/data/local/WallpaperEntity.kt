@@ -1,5 +1,6 @@
 package com.wallpaperhub.app.data.local
 
+import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.Index
 import androidx.room.PrimaryKey
@@ -12,8 +13,8 @@ import androidx.room.PrimaryKey
     tableName = "wallpapers",
     indices = [
         Index(value = ["url"], unique = true),
-        Index(value = ["isR18"]),
-        Index(value = ["isFavorite"])
+        Index(value = ["is_r18"]),
+        Index(value = ["is_favorite"])
     ]
 )
 data class WallpaperEntity(
@@ -24,9 +25,13 @@ data class WallpaperEntity(
     val source: String = "",
     val tags: String = "",  // JSON array string
     val resolution: String = "",
+    @ColumnInfo(name = "is_r18")
     val isR18: Boolean = false,
+    @ColumnInfo(name = "is_favorite")
     val isFavorite: Boolean = false,
     val category: String = "normal",  // normal, live, 3d
+    @ColumnInfo(name = "local_path")
     val localPath: String = "",
+    @ColumnInfo(name = "created_at")
     val createdAt: Long = System.currentTimeMillis()
 )

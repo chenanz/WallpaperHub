@@ -21,7 +21,7 @@ import kotlinx.coroutines.launch
  */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun LivePreviewScreen(wallpaperId: Int, navController: NavController) {
+fun LivePreviewScreen(wallpaperId: String, navController: NavController) {
     val context = LocalContext.current
     val scope = rememberCoroutineScope()
     val dao = AppDatabase.getInstance(context).wallpaperDao()

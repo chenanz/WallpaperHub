@@ -28,8 +28,8 @@ object Routes {
     private const val R18_BASE = "UjE4R2FsbGVyeQ=="
     val R18_GALLERY: String = String(Base64.decode(R18_BASE, Base64.DEFAULT))
 
-    fun previewRoute(id: Int) = "preview/$id"
-    fun livePreviewRoute(id: Int) = "live_preview/$id"
+    fun previewRoute(id: String) = "preview/$id"
+    fun livePreviewRoute(id: String) = "live_preview/$id"
 }
 
 sealed class BottomNavItem(val route: String, val label: String, val icon: androidx.compose.ui.graphics.vector.ImageVector) {
@@ -97,12 +97,12 @@ fun WallpaperHubNavHost() {
             composable(Routes.FAVORITES) { FavoritesScreen(navController) }
             composable(Routes.SETTINGS) { SettingsScreen(navController) }
             composable(Routes.PREVIEW) { backStackEntry ->
-                val id = backStackEntry.arguments?.getString("wallpaperId")?.toIntOrNull()
-                if (id != null) PreviewScreen(wallpaperId = id, navController = navController)
+                val id = backStackEntry.arguments?.getString("wallpaperId") ?: ""
+                if (id.isNotEmpty()) PreviewScreen(wallpaperId = id, navController = navController)
             }
             composable(Routes.LIVE_PREVIEW) { backStackEntry ->
-                val id = backStackEntry.arguments?.getString("wallpaperId")?.toIntOrNull()
-                if (id != null) LivePreviewScreen(wallpaperId = id, navController = navController)
+                val id = backStackEntry.arguments?.getString("wallpaperId") ?: ""
+                if (id.isNotEmpty()) LivePreviewScreen(wallpaperId = id, navController = navController)
             }
             // 隐藏路由 - 动态拼接
             composable(Routes.R18_GALLERY) { R18GalleryScreen(navController) }

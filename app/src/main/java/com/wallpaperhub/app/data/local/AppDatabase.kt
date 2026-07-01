@@ -12,7 +12,6 @@ import com.wallpaperhub.app.data.local.dao.WallpaperDao
     version = 1,
     exportSchema = false
 )
-@TypeConverters(Converters::class)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun wallpaperDao(): WallpaperDao
 
@@ -34,26 +33,4 @@ abstract class AppDatabase : RoomDatabase() {
             }
         }
     }
-}
-
-@Entity(tableName = "wallpapers")
-data class WallpaperEntity(
-    @PrimaryKey val id: Int,
-    val url: String,
-    @ColumnInfo(name = "thumbnail_url") val thumbnailUrl: String? = null,
-    val source: String,
-    val tags: List<String> = emptyList(),
-    val resolution: String? = null,
-    @ColumnInfo(name = "is_r18") val isR18: Boolean = false,
-    @ColumnInfo(name = "is_favorite") val isFavorite: Boolean = false,
-    @ColumnInfo(name = "local_path") val localPath: String? = null,
-    @ColumnInfo(name = "created_at") val createdAt: String? = null
-)
-
-class Converters {
-    @TypeConverter
-    fun fromStringList(value: List<String>?): String? = value?.joinToString(",")
-
-    @TypeConverter
-    fun toStringList(value: String?): List<String>? = value?.split(",")?.map { it.trim() } ?: emptyList()
 }
