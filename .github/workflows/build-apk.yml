@@ -35,10 +35,22 @@ jobs:
         sdkmanager --install "platforms;android-34" "build-tools;34.0.0" "platform-tools"
 
     - name: Build Debug APK
-      run: ./gradlew assembleDebug --no-daemon --stacktrace
+      run: |
+        ./gradlew assembleDebug --no-daemon --stacktrace 2>&1 | tee build_log.txt
+      continue-on-error: true
+
+    - name: Show build log on failure
+      if: failure()
+      run: |
+        cat build_log.txt 2>/dev/null | tail -100
+        echo "--- Gradle version ---"
+        ./gradlew --version 2>/dev/null || gradle --version 2>/dev/null
+        echo "--- Project files ---"
+        find . -name "*.gradle.kts" -exec echo "=== {} ===" \; -exec cat {} \;
 
     - name: Upload APK artifact
       uses: actions/upload-artifact@v4
+      if: success()
       with:
         name: wallpaperhub-debug-apk
         path: app/build/outputs/apk/debug/*.apk
