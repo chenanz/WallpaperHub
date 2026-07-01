@@ -37,28 +37,38 @@ jobs:
       run: sdkmanager --install "platforms;android-34" "build-tools;34.0.0" "platform-tools"
 
     - name: Build Debug APK
-      continue-on-error: true
-      id: build_step
-      run: ./gradlew assembleDebug --no-daemon --stacktrace 2>&1 | tee build_output.log
+      run: ./gradlew assembleDebug --no-daemon --stacktrace
 
-    - name: Post errors to Issue
-      if: always()
+    - name: Find APK files
+      id: find_apk
       run: |
-        ERRORS=$(grep -E "^e:" build_output.log 2>/dev/null | head -60 || echo "No e: lines")
-        TAIL_LOG=$(tail -100 build_output.log 2>/dev/null || echo "No log")
-        STATUS="${{ steps.build_step.outcome }}"
-        BODY="## Build: ${STATUS}\n\n### Errors\n\`\`\`\n${ERRORS}\n\`\`\`\n\n### Log Tail\n\`\`\`\n${TAIL_LOG}\n\`\`\`"
-        PAYLOAD=$(printf '{"body":"%s"}' "$(echo "$BODY" | sed 's/"/\\"/g' | sed ':a;N;$!ba;s/\n/\\n/g')")
-        curl -s -X POST \
-          -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
-          -H "Accept: application/vnd.github+json" \
-          "https://api.github.com/repos/chenanz/WallpaperHub/issues/1/comments" \
-          -d "$PAYLOAD" || true
+        echo "Searching for APK files..."
+        find . -name "*.apk" -type f 2>/dev/null
+        APK_PATH=$(find app/build/outputs/apk -name "*.apk" -type f 2>/dev/null | head -1)
+        echo "apk_path=$APK_PATH" >> "$GITHUB_OUTPUT"
+        if [ -n "$APK_PATH" ]; then
+          echo "Found APK: $APK_PATH"
+          APK_SIZE=$(stat -c%s "$APK_PATH" 2>/dev/null || echo "0")
+          echo "APK size: $(($APK_SIZE / 1024))KB"
+        else
+          echo "NO APK FOUND - listing app/build/outputs:"
+          find app/build/outputs -type f 2>/dev/null | head -20
+          echo "ERROR: No APK was produced"
+          exit 1
+        fi
+
+    - name: Upload APK artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: wallpaperhub-debug-apk
+        path: app/build/outputs/apk/**/*.apk
+        retention-days: 90
 
     - name: Upload APK to Release
-      if: startsWith(github.ref, 'refs/tags/v') && steps.build_step.outcome == 'success'
+      if: startsWith(github.ref, 'refs/tags/v')
       uses: softprops/action-gh-release@v2
       with:
         files: app/build/outputs/apk/**/*.apk
+        generate_release_notes: true
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
