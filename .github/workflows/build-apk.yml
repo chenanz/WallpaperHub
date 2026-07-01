@@ -45,63 +45,77 @@ jobs:
         ./gradlew assembleDebug --no-daemon --stacktrace 2>&1 | tee build_output.log
       continue-on-error: true
 
-    - name: List APK files
-      if: steps.build.outcome == 'success'
+    - name: Diagnose output
+      if: always()
       run: |
-        echo "=== APK Files ==="
-        find app/build/outputs -name "*.apk" -type f || echo "No APK files found"
-        echo "=== All outputs ==="
-        find app/build/outputs -type f 2>/dev/null || echo "No outputs"
+        echo "=== Build outcome: ${{ steps.build.outcome }} ==="
+        echo "=== APK files ==="
+        find app/build/outputs -name "*.apk" -type f 2>/dev/null || echo "No APK found"
+        echo "=== All build output files ==="
+        find app/build/outputs -type f 2>/dev/null | head -30 || echo "No outputs dir"
+        echo "=== app/build contents ==="
+        find app/build -maxdepth 3 -type d 2>/dev/null | head -30 || echo "No build dir"
 
-    - name: Post build log as issue comment on failure
+    - name: Post build log to issue on failure
       if: steps.build.outcome == 'failure'
       uses: actions/github-script@v7
       with:
         script: |
           const fs = require('fs');
           let log = '';
-          try { log = fs.readFileSync('build_output.log', 'utf8'); } catch(e) { log = 'Could not read log'; }
+          try { log = fs.readFileSync('build_output.log', 'utf8'); } catch(e) { log = 'No log file'; }
           const lines = log.split('\n').slice(-200).join('\n');
-          const body = `## Build Failed\n\n<details><summary>Build Log (last 200 lines)</summary>\n\n\`\`\`\n${lines}\n\`\`\`\n</details>`;
-          const issues = await github.rest.issues.listForRepo({ owner: context.repo.owner, repo: context.repo.repo, labels: 'ci-build-log', state: 'open' });
+          const body = `## ❌ Build Failed\n\n<details><summary>Last 200 lines</summary>\n\n\`\`\`\n${lines}\n\`\`\`\n</details>`;
           let issue_number;
-          if (issues.data.length === 0) {
-            const created = await github.rest.issues.create({ owner: context.repo.owner, repo: context.repo.repo, title: 'CI Build Log', labels: ['ci-build-log'], body: 'Auto-created for CI build logs' });
-            issue_number = created.data.number;
-          } else {
-            issue_number = issues.data[0].number;
-          }
-          await github.rest.issues.createComment({ owner: context.repo.owner, repo: context.repo.repo, issue_number, body });
+          try {
+            const issues = await github.rest.issues.listForRepo({ owner: context.repo.owner, repo: context.repo.repo, labels: 'ci-build-log', state: 'open' });
+            if (issues.data.length > 0) {
+              issue_number = issues.data[0].number;
+            } else {
+              const created = await github.rest.issues.create({ owner: context.repo.owner, repo: context.repo.repo, title: 'CI Build Log', labels: ['ci-build-log'], body: '' });
+              issue_number = created.data.number;
+            }
+            await github.rest.issues.createComment({ owner: context.repo.owner, repo: context.repo.repo, issue_number, body });
+          } catch(e) { console.log('Failed to post issue: ' + e.message); }
+
+    - name: Diagnose success + post to issue
+      if: steps.build.outcome == 'success'
+      uses: actions/github-script@v7
+      with:
+        script: |
+          const { execSync } = require('child_process');
+          let output = '';
+          try { output = execSync('find app/build/outputs -name "*.apk" -type f 2>/dev/null || echo "NO_APK"').toString(); } catch(e) { output = 'Error: ' + e.message; }
+          const body = `## ✅ Build Succeeded\n\nAPK files found:\n\`\`\`\n${output}\n\`\`\``;
+          try {
+            let issue_number;
+            const issues = await github.rest.issues.listForRepo({ owner: context.repo.owner, repo: context.repo.repo, labels: 'ci-build-log', state: 'open' });
+            if (issues.data.length > 0) {
+              issue_number = issues.data[0].number;
+            } else {
+              const created = await github.rest.issues.create({ owner: context.repo.owner, repo: context.repo.repo, title: 'CI Build Log', labels: ['ci-build-log'], body: '' });
+              issue_number = created.data.number;
+            }
+            await github.rest.issues.createComment({ owner: context.repo.owner, repo: context.repo.repo, issue_number, body });
+          } catch(e) { console.log('Failed to post: ' + e.message); }
 
     - name: Upload APK artifact
       if: steps.build.outcome == 'success'
       uses: actions/upload-artifact@v4
       with:
         name: wallpaperhub-debug-apk
-        path: app/build/outputs/apk/**/*.apk
+        path: |
+          app/build/outputs/apk/debug/*.apk
+          app/build/outputs/apk/**/*.apk
         retention-days: 90
         if-no-files-found: warn
 
-    - name: Create GitHub Release with APK
-      if: startsWith(github.ref, 'refs/tags/v') && steps.build.outcome == 'success'
-      run: |
-        APK_FILE=$(find app/build/outputs -name "*.apk" -type f | head -1)
-        if [ -n "$APK_FILE" ]; then
-          echo "Found APK: $APK_FILE"
-          # Rename to a cleaner name
-          cp "$APK_FILE" "WallpaperHub-${GITHUB_REF_NAME}.apk"
-          ls -la "WallpaperHub-${GITHUB_REF_NAME}.apk"
-        else
-          echo "WARNING: No APK file found!"
-          find app/build/outputs -type f 2>/dev/null || true
-        fi
-      
     - name: Upload APK to Release
       if: startsWith(github.ref, 'refs/tags/v') && steps.build.outcome == 'success'
       uses: softprops/action-gh-release@v2
       with:
         files: |
-          WallpaperHub-*.apk
+          app/build/outputs/apk/debug/*.apk
           app/build/outputs/apk/**/*.apk
         generate_release_notes: true
       env:
