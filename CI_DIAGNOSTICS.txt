@@ -1,58 +1,215 @@
 === BUILD DIAGNOSTICS ===
-Date: Wed Jul  1 11:15:12 UTC 2026
+Date: Wed Jul  1 11:29:56 UTC 2026
 === APK Search ===
-=== Build Dir ===
-app/build/kspCaches/debug/sealed.len
-app/build/kspCaches/debug/symbols
-app/build/kspCaches/debug/sealed_i.len
-app/build/kspCaches/debug/sealed
-app/build/kspCaches/debug/sourceToOutputs.len
-app/build/kspCaches/debug/sourceToOutputs
-app/build/kspCaches/debug/sourceToOutputs.keystream.len
-app/build/kspCaches/debug/symbols.keystream.len
-app/build/kspCaches/debug/classpath-entries.bin
-app/build/kspCaches/debug/symbols.len
-app/build/kspCaches/debug/symbols_i.len
-app/build/kspCaches/debug/ap-classpath-entries.bin
-app/build/kspCaches/debug/sealed.keystream.len
-app/build/kspCaches/debug/sourceToOutputs_i.len
-app/build/kspCaches/debug/classpath-structure.bin
-app/build/outputs/logs/manifest-merger-debug-report.txt
-app/build/generated/ksp/debug/java/com/wallpaperhub/app/data/local/AppDatabase_Impl.java
-app/build/generated/ksp/debug/java/com/wallpaperhub/app/data/local/dao/WallpaperDao_Impl.java
-app/build/generated/source/buildConfig/debug/com/wallpaperhub/app/BuildConfig.java
-app/build/intermediates/dex/debug/mergeExtDexDebug/classes3.dex
-app/build/intermediates/dex/debug/mergeExtDexDebug/classes.dex
-app/build/intermediates/dex/debug/mergeExtDexDebug/classes2.dex
-app/build/intermediates/merged_manifest/debug/AndroidManifest.xml
-app/build/intermediates/incremental/debug/mergeDebugResources/merger.xml
-app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-pt-rBR/values-pt-rBR.xml
-app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-v16/values-v16.xml
-app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-ur/values-ur.xml
-app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-v23/values-v23.xml
-app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-bn/values-bn.xml
-app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-mr/values-mr.xml
-app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-sk/values-sk.xml
-app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-sw/values-sw.xml
-app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-lv/values-lv.xml
-app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-vi/values-vi.xml
-app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-pa/values-pa.xml
-app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-es/values-es.xml
-app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-nb/values-nb.xml
-app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-ms/values-ms.xml
-app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-zh-rCN/values-zh-rCN.xml
-app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-sr/values-sr.xml
-app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-as/values-as.xml
-app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-el/values-el.xml
-app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-gu/values-gu.xml
-app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-sq/values-sq.xml
-app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-az/values-az.xml
-app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-en-rIN/values-en-rIN.xml
-app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-in/values-in.xml
-app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-fr/values-fr.xml
-app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-en-rXC/values-en-rXC.xml
-app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-bg/values-bg.xml
-=== Build Log (last 100 lines) ===
+=== Kotlin Errors ===
+7:Here are the highlights of this release:
+18:w: file:///home/runner/work/WallpaperHub/WallpaperHub/app/build.gradle.kts:18:9: 'resConfigs(vararg String): Unit' is deprecated. Replaced by resourceConfigurations field
+56:e: [ksp] /home/runner/work/WallpaperHub/WallpaperHub/app/src/main/java/com/wallpaperhub/app/data/local/dao/WallpaperDao.kt:12: There is a problem with the query: [SQLITE_ERROR] SQL error or missing database (no such column: is_r18)
+57:e: [ksp] /home/runner/work/WallpaperHub/WallpaperHub/app/src/main/java/com/wallpaperhub/app/data/local/dao/WallpaperDao.kt:12: Not sure how to convert a Cursor to this method's return type (kotlinx.coroutines.flow.Flow<java.util.List<com.wallpaperhub.app.data.local.WallpaperEntity>>).
+58:e: [ksp] /home/runner/work/WallpaperHub/WallpaperHub/app/src/main/java/com/wallpaperhub/app/data/local/dao/WallpaperDao.kt:15: There is a problem with the query: [SQLITE_ERROR] SQL error or missing database (no such column: is_r18)
+59:e: [ksp] /home/runner/work/WallpaperHub/WallpaperHub/app/src/main/java/com/wallpaperhub/app/data/local/dao/WallpaperDao.kt:15: Not sure how to convert a Cursor to this method's return type (kotlinx.coroutines.flow.Flow<java.util.List<com.wallpaperhub.app.data.local.WallpaperEntity>>).
+60:e: [ksp] /home/runner/work/WallpaperHub/WallpaperHub/app/src/main/java/com/wallpaperhub/app/data/local/dao/WallpaperDao.kt:19: There is a problem with the query: [SQLITE_ERROR] SQL error or missing database (no such column: is_r18)
+61:e: [ksp] /home/runner/work/WallpaperHub/WallpaperHub/app/src/main/java/com/wallpaperhub/app/data/local/dao/WallpaperDao.kt:19: Not sure how to convert a Cursor to this method's return type (kotlinx.coroutines.flow.Flow<java.util.List<com.wallpaperhub.app.data.local.WallpaperEntity>>).
+62:e: [ksp] /home/runner/work/WallpaperHub/WallpaperHub/app/src/main/java/com/wallpaperhub/app/data/local/dao/WallpaperDao.kt:23: There is a problem with the query: [SQLITE_ERROR] SQL error or missing database (no such column: is_favorite)
+63:e: [ksp] /home/runner/work/WallpaperHub/WallpaperHub/app/src/main/java/com/wallpaperhub/app/data/local/dao/WallpaperDao.kt:23: Not sure how to convert a Cursor to this method's return type (kotlinx.coroutines.flow.Flow<java.util.List<com.wallpaperhub.app.data.local.WallpaperEntity>>).
+64:e: [ksp] /home/runner/work/WallpaperHub/WallpaperHub/app/src/main/java/com/wallpaperhub/app/data/local/dao/WallpaperDao.kt:38: There is a problem with the query: [SQLITE_ERROR] SQL error or missing database (no such column: is_favorite)
+65:e: [ksp] /home/runner/work/WallpaperHub/WallpaperHub/app/src/main/java/com/wallpaperhub/app/data/local/dao/WallpaperDao.kt:42: There is a problem with the query: [SQLITE_ERROR] SQL error or missing database (no such column: local_path)
+66:e: [ksp] /home/runner/work/WallpaperHub/WallpaperHub/app/src/main/java/com/wallpaperhub/app/data/local/dao/WallpaperDao.kt:46: There is a problem with the query: [SQLITE_ERROR] SQL error or missing database (no such column: is_r18)
+67:e: [ksp] /home/runner/work/WallpaperHub/WallpaperHub/app/src/main/java/com/wallpaperhub/app/data/local/dao/WallpaperDao.kt:46: Not sure how to convert a Cursor to this method's return type (java.lang.Integer).
+68:e: [ksp] /home/runner/work/WallpaperHub/WallpaperHub/app/src/main/java/com/wallpaperhub/app/data/local/dao/WallpaperDao.kt:49: There is a problem with the query: [SQLITE_ERROR] SQL error or missing database (no such column: is_r18)
+69:e: [ksp] /home/runner/work/WallpaperHub/WallpaperHub/app/src/main/java/com/wallpaperhub/app/data/local/dao/WallpaperDao.kt:49: Not sure how to convert a Cursor to this method's return type (java.lang.Integer).
+70:e: [ksp] /home/runner/work/WallpaperHub/WallpaperHub/app/src/main/java/com/wallpaperhub/app/data/local/dao/WallpaperDao.kt:52: There is a problem with the query: [SQLITE_ERROR] SQL error or missing database (no such column: is_favorite)
+71:e: [ksp] /home/runner/work/WallpaperHub/WallpaperHub/app/src/main/java/com/wallpaperhub/app/data/local/dao/WallpaperDao.kt:52: Not sure how to convert a Cursor to this method's return type (java.lang.Integer).
+72:e: [ksp] /home/runner/work/WallpaperHub/WallpaperHub/app/src/main/java/com/wallpaperhub/app/data/local/dao/WallpaperDao.kt:56: There is a problem with the query: [SQLITE_ERROR] SQL error or missing database (no such column: is_favorite)
+73:e: Error occurred in KSP, check log for detail
+=== Build Log (last 300 lines) ===
+Fetching distribution.
+Downloading https://services.gradle.org/distributions/gradle-8.5-bin.zip
+............10%.............20%............30%.............40%.............50%............60%.............70%.............80%............90%.............100%
+
+Welcome to Gradle 8.5!
+
+Here are the highlights of this release:
+ - Support for running on Java 21
+ - Faster first use with Kotlin DSL
+ - Improved error and warning messages
+
+For more details see https://docs.gradle.org/8.5/release-notes.html
+
+To honour the JVM settings for this build a single-use Daemon process will be forked. For more on this, please refer to https://docs.gradle.org/8.5/userguide/gradle_daemon.html#sec:disabling_the_daemon in the Gradle documentation.
+Daemon will be stopped at the end of the build 
+
+> Configure project :app
+w: file:///home/runner/work/WallpaperHub/WallpaperHub/app/build.gradle.kts:18:9: 'resConfigs(vararg String): Unit' is deprecated. Replaced by resourceConfigurations field
+
+> Task :app:preBuild UP-TO-DATE
+> Task :app:preDebugBuild UP-TO-DATE
+> Task :app:mergeDebugNativeDebugMetadata NO-SOURCE
+> Task :app:checkKotlinGradlePluginConfigurationErrors
+> Task :app:generateDebugBuildConfig
+> Task :app:generateDebugResValues
+> Task :app:checkDebugAarMetadata
+> Task :app:mapDebugSourceSetPaths
+> Task :app:generateDebugResources
+> Task :app:packageDebugResources
+> Task :app:mergeDebugResources
+> Task :app:createDebugCompatibleScreenManifests
+> Task :app:extractDeepLinksDebug
+> Task :app:parseDebugLocalResources
+> Task :app:processDebugMainManifest
+> Task :app:processDebugManifest
+> Task :app:javaPreCompileDebug
+> Task :app:mergeDebugShaders
+> Task :app:compileDebugShaders NO-SOURCE
+> Task :app:generateDebugAssets UP-TO-DATE
+> Task :app:mergeDebugAssets FROM-CACHE
+> Task :app:compressDebugAssets
+> Task :app:desugarDebugFileDependencies
+> Task :app:mergeDebugJniLibFolders FROM-CACHE
+> Task :app:checkDebugDuplicateClasses
+> Task :app:mergeDebugNativeLibs NO-SOURCE
+> Task :app:processDebugManifestForPackage
+> Task :app:mergeExtDexDebug
+> Task :app:stripDebugDebugSymbols NO-SOURCE
+> Task :app:mergeLibDexDebug
+> Task :app:processDebugResources
+> Task :app:validateSigningDebug
+> Task :app:writeDebugAppMetadata
+> Task :app:writeDebugSigningConfigVersions
+
+> Task :app:kspDebugKotlin FAILED
+e: [ksp] /home/runner/work/WallpaperHub/WallpaperHub/app/src/main/java/com/wallpaperhub/app/data/local/dao/WallpaperDao.kt:12: There is a problem with the query: [SQLITE_ERROR] SQL error or missing database (no such column: is_r18)
+e: [ksp] /home/runner/work/WallpaperHub/WallpaperHub/app/src/main/java/com/wallpaperhub/app/data/local/dao/WallpaperDao.kt:12: Not sure how to convert a Cursor to this method's return type (kotlinx.coroutines.flow.Flow<java.util.List<com.wallpaperhub.app.data.local.WallpaperEntity>>).
+e: [ksp] /home/runner/work/WallpaperHub/WallpaperHub/app/src/main/java/com/wallpaperhub/app/data/local/dao/WallpaperDao.kt:15: There is a problem with the query: [SQLITE_ERROR] SQL error or missing database (no such column: is_r18)
+e: [ksp] /home/runner/work/WallpaperHub/WallpaperHub/app/src/main/java/com/wallpaperhub/app/data/local/dao/WallpaperDao.kt:15: Not sure how to convert a Cursor to this method's return type (kotlinx.coroutines.flow.Flow<java.util.List<com.wallpaperhub.app.data.local.WallpaperEntity>>).
+e: [ksp] /home/runner/work/WallpaperHub/WallpaperHub/app/src/main/java/com/wallpaperhub/app/data/local/dao/WallpaperDao.kt:19: There is a problem with the query: [SQLITE_ERROR] SQL error or missing database (no such column: is_r18)
+e: [ksp] /home/runner/work/WallpaperHub/WallpaperHub/app/src/main/java/com/wallpaperhub/app/data/local/dao/WallpaperDao.kt:19: Not sure how to convert a Cursor to this method's return type (kotlinx.coroutines.flow.Flow<java.util.List<com.wallpaperhub.app.data.local.WallpaperEntity>>).
+e: [ksp] /home/runner/work/WallpaperHub/WallpaperHub/app/src/main/java/com/wallpaperhub/app/data/local/dao/WallpaperDao.kt:23: There is a problem with the query: [SQLITE_ERROR] SQL error or missing database (no such column: is_favorite)
+e: [ksp] /home/runner/work/WallpaperHub/WallpaperHub/app/src/main/java/com/wallpaperhub/app/data/local/dao/WallpaperDao.kt:23: Not sure how to convert a Cursor to this method's return type (kotlinx.coroutines.flow.Flow<java.util.List<com.wallpaperhub.app.data.local.WallpaperEntity>>).
+e: [ksp] /home/runner/work/WallpaperHub/WallpaperHub/app/src/main/java/com/wallpaperhub/app/data/local/dao/WallpaperDao.kt:38: There is a problem with the query: [SQLITE_ERROR] SQL error or missing database (no such column: is_favorite)
+e: [ksp] /home/runner/work/WallpaperHub/WallpaperHub/app/src/main/java/com/wallpaperhub/app/data/local/dao/WallpaperDao.kt:42: There is a problem with the query: [SQLITE_ERROR] SQL error or missing database (no such column: local_path)
+e: [ksp] /home/runner/work/WallpaperHub/WallpaperHub/app/src/main/java/com/wallpaperhub/app/data/local/dao/WallpaperDao.kt:46: There is a problem with the query: [SQLITE_ERROR] SQL error or missing database (no such column: is_r18)
+e: [ksp] /home/runner/work/WallpaperHub/WallpaperHub/app/src/main/java/com/wallpaperhub/app/data/local/dao/WallpaperDao.kt:46: Not sure how to convert a Cursor to this method's return type (java.lang.Integer).
+e: [ksp] /home/runner/work/WallpaperHub/WallpaperHub/app/src/main/java/com/wallpaperhub/app/data/local/dao/WallpaperDao.kt:49: There is a problem with the query: [SQLITE_ERROR] SQL error or missing database (no such column: is_r18)
+e: [ksp] /home/runner/work/WallpaperHub/WallpaperHub/app/src/main/java/com/wallpaperhub/app/data/local/dao/WallpaperDao.kt:49: Not sure how to convert a Cursor to this method's return type (java.lang.Integer).
+e: [ksp] /home/runner/work/WallpaperHub/WallpaperHub/app/src/main/java/com/wallpaperhub/app/data/local/dao/WallpaperDao.kt:52: There is a problem with the query: [SQLITE_ERROR] SQL error or missing database (no such column: is_favorite)
+e: [ksp] /home/runner/work/WallpaperHub/WallpaperHub/app/src/main/java/com/wallpaperhub/app/data/local/dao/WallpaperDao.kt:52: Not sure how to convert a Cursor to this method's return type (java.lang.Integer).
+e: [ksp] /home/runner/work/WallpaperHub/WallpaperHub/app/src/main/java/com/wallpaperhub/app/data/local/dao/WallpaperDao.kt:56: There is a problem with the query: [SQLITE_ERROR] SQL error or missing database (no such column: is_favorite)
+e: Error occurred in KSP, check log for detail
+
+FAILURE: Build failed with an exception.
+
+* What went wrong:
+Execution failed for task ':app:kspDebugKotlin'.
+> A failure occurred while executing org.jetbrains.kotlin.compilerRunner.GradleCompilerRunnerWithWorkers$GradleKotlinCompilerWorkAction
+   > Compilation error. See log for more details
+
+* Try:
+> Run with --info or --debug option to get more log output.
+> Run with --scan to get full insights.
+> Get more help at https://help.gradle.org.
+
+* Exception is:
+org.gradle.api.tasks.TaskExecutionException: Execution failed for task ':app:kspDebugKotlin'.
+	at org.gradle.api.internal.tasks.execution.ExecuteActionsTaskExecuter.lambda$executeIfValid$1(ExecuteActionsTaskExecuter.java:148)
+	at org.gradle.internal.Try$Failure.ifSuccessfulOrElse(Try.java:282)
+	at org.gradle.api.internal.tasks.execution.ExecuteActionsTaskExecuter.executeIfValid(ExecuteActionsTaskExecuter.java:146)
+	at org.gradle.api.internal.tasks.execution.ExecuteActionsTaskExecuter.execute(ExecuteActionsTaskExecuter.java:134)
+	at org.gradle.api.internal.tasks.execution.FinalizePropertiesTaskExecuter.execute(FinalizePropertiesTaskExecuter.java:46)
+	at org.gradle.api.internal.tasks.execution.ResolveTaskExecutionModeExecuter.execute(ResolveTaskExecutionModeExecuter.java:51)
+	at org.gradle.api.internal.tasks.execution.SkipTaskWithNoActionsExecuter.execute(SkipTaskWithNoActionsExecuter.java:57)
+	at org.gradle.api.internal.tasks.execution.SkipOnlyIfTaskExecuter.execute(SkipOnlyIfTaskExecuter.java:74)
+	at org.gradle.api.internal.tasks.execution.CatchExceptionTaskExecuter.execute(CatchExceptionTaskExecuter.java:36)
+	at org.gradle.api.internal.tasks.execution.EventFiringTaskExecuter$1.executeTask(EventFiringTaskExecuter.java:77)
+	at org.gradle.api.internal.tasks.execution.EventFiringTaskExecuter$1.call(EventFiringTaskExecuter.java:55)
+	at org.gradle.api.internal.tasks.execution.EventFiringTaskExecuter$1.call(EventFiringTaskExecuter.java:52)
+	at org.gradle.internal.operations.DefaultBuildOperationRunner$CallableBuildOperationWorker.execute(DefaultBuildOperationRunner.java:204)
+	at org.gradle.internal.operations.DefaultBuildOperationRunner$CallableBuildOperationWorker.execute(DefaultBuildOperationRunner.java:199)
+	at org.gradle.internal.operations.DefaultBuildOperationRunner$2.execute(DefaultBuildOperationRunner.java:66)
+	at org.gradle.internal.operations.DefaultBuildOperationRunner$2.execute(DefaultBuildOperationRunner.java:59)
+	at org.gradle.internal.operations.DefaultBuildOperationRunner.execute(DefaultBuildOperationRunner.java:157)
+	at org.gradle.internal.operations.DefaultBuildOperationRunner.execute(DefaultBuildOperationRunner.java:59)
+	at org.gradle.internal.operations.DefaultBuildOperationRunner.call(DefaultBuildOperationRunner.java:53)
+	at org.gradle.internal.operations.DefaultBuildOperationExecutor.call(DefaultBuildOperationExecutor.java:73)
+	at org.gradle.api.internal.tasks.execution.EventFiringTaskExecuter.execute(EventFiringTaskExecuter.java:52)
+	at org.gradle.execution.plan.LocalTaskNodeExecutor.execute(LocalTaskNodeExecutor.java:42)
+	at org.gradle.execution.taskgraph.DefaultTaskExecutionGraph$InvokeNodeExecutorsAction.execute(DefaultTaskExecutionGraph.java:331)
+	at org.gradle.execution.taskgraph.DefaultTaskExecutionGraph$InvokeNodeExecutorsAction.execute(DefaultTaskExecutionGraph.java:318)
+	at org.gradle.execution.taskgraph.DefaultTaskExecutionGraph$BuildOperationAwareExecutionAction.lambda$execute$0(DefaultTaskExecutionGraph.java:314)
+	at org.gradle.internal.operations.CurrentBuildOperationRef.with(CurrentBuildOperationRef.java:80)
+	at org.gradle.execution.taskgraph.DefaultTaskExecutionGraph$BuildOperationAwareExecutionAction.execute(DefaultTaskExecutionGraph.java:314)
+	at org.gradle.execution.taskgraph.DefaultTaskExecutionGraph$BuildOperationAwareExecutionAction.execute(DefaultTaskExecutionGraph.java:303)
+	at org.gradle.execution.plan.DefaultPlanExecutor$ExecutorWorker.execute(DefaultPlanExecutor.java:463)
+	at org.gradle.execution.plan.DefaultPlanExecutor$ExecutorWorker.run(DefaultPlanExecutor.java:380)
+	at org.gradle.internal.concurrent.ExecutorPolicy$CatchAndRecordFailures.onExecute(ExecutorPolicy.java:64)
+	at org.gradle.internal.concurrent.AbstractManagedExecutor$1.run(AbstractManagedExecutor.java:47)
+Caused by: org.gradle.workers.internal.DefaultWorkerExecutor$WorkExecutionException: A failure occurred while executing org.jetbrains.kotlin.compilerRunner.GradleCompilerRunnerWithWorkers$GradleKotlinCompilerWorkAction
+	at org.gradle.workers.internal.DefaultWorkerExecutor$WorkItemExecution.waitForCompletion(DefaultWorkerExecutor.java:283)
+	at org.gradle.internal.work.DefaultAsyncWorkTracker.lambda$waitForItemsAndGatherFailures$2(DefaultAsyncWorkTracker.java:130)
+	at org.gradle.internal.Factories$1.create(Factories.java:31)
+	at org.gradle.internal.work.DefaultWorkerLeaseService.withoutLocks(DefaultWorkerLeaseService.java:336)
+	at org.gradle.internal.work.DefaultWorkerLeaseService.withoutLocks(DefaultWorkerLeaseService.java:319)
+	at org.gradle.internal.work.DefaultWorkerLeaseService.withoutLock(DefaultWorkerLeaseService.java:324)
+	at org.gradle.internal.work.DefaultAsyncWorkTracker.waitForItemsAndGatherFailures(DefaultAsyncWorkTracker.java:126)
+	at org.gradle.internal.work.DefaultAsyncWorkTracker.waitForItemsAndGatherFailures(DefaultAsyncWorkTracker.java:92)
+	at org.gradle.internal.work.DefaultAsyncWorkTracker.waitForAll(DefaultAsyncWorkTracker.java:78)
+	at org.gradle.internal.work.DefaultAsyncWorkTracker.waitForCompletion(DefaultAsyncWorkTracker.java:66)
+	at org.gradle.api.internal.tasks.execution.TaskExecution$3.run(TaskExecution.java:256)
+	at org.gradle.internal.operations.DefaultBuildOperationRunner$1.execute(DefaultBuildOperationRunner.java:29)
+	at org.gradle.internal.operations.DefaultBuildOperationRunner$1.execute(DefaultBuildOperationRunner.java:26)
+	at org.gradle.internal.operations.DefaultBuildOperationRunner$2.execute(DefaultBuildOperationRunner.java:66)
+	at org.gradle.internal.operations.DefaultBuildOperationRunner$2.execute(DefaultBuildOperationRunner.java:59)
+	at org.gradle.internal.operations.DefaultBuildOperationRunner.execute(DefaultBuildOperationRunner.java:157)
+	at org.gradle.internal.operations.DefaultBuildOperationRunner.execute(DefaultBuildOperationRunner.java:59)
+	at org.gradle.internal.operations.DefaultBuildOperationRunner.run(DefaultBuildOperationRunner.java:47)
+	at org.gradle.internal.operations.DefaultBuildOperationExecutor.run(DefaultBuildOperationExecutor.java:68)
+	at org.gradle.api.internal.tasks.execution.TaskExecution.executeAction(TaskExecution.java:233)
+	at org.gradle.api.internal.tasks.execution.TaskExecution.executeActions(TaskExecution.java:216)
+	at org.gradle.api.internal.tasks.execution.TaskExecution.executeWithPreviousOutputFiles(TaskExecution.java:199)
+	at org.gradle.api.internal.tasks.execution.TaskExecution.execute(TaskExecution.java:166)
+	at org.gradle.internal.execution.steps.ExecuteStep.executeInternal(ExecuteStep.java:105)
+	at org.gradle.internal.execution.steps.ExecuteStep.access$000(ExecuteStep.java:44)
+	at org.gradle.internal.execution.steps.ExecuteStep$1.call(ExecuteStep.java:59)
+	at org.gradle.internal.execution.steps.ExecuteStep$1.call(ExecuteStep.java:56)
+	at org.gradle.internal.operations.DefaultBuildOperationRunner$CallableBuildOperationWorker.execute(DefaultBuildOperationRunner.java:204)
+	at org.gradle.internal.operations.DefaultBuildOperationRunner$CallableBuildOperationWorker.execute(DefaultBuildOperationRunner.java:199)
+	at org.gradle.internal.operations.DefaultBuildOperationRunner$2.execute(DefaultBuildOperationRunner.java:66)
+	at org.gradle.internal.operations.DefaultBuildOperationRunner$2.execute(DefaultBuildOperationRunner.java:59)
+	at org.gradle.internal.operations.DefaultBuildOperationRunner.execute(DefaultBuildOperationRunner.java:157)
+	at org.gradle.internal.operations.DefaultBuildOperationRunner.execute(DefaultBuildOperationRunner.java:59)
+	at org.gradle.internal.operations.DefaultBuildOperationRunner.call(DefaultBuildOperationRunner.java:53)
+	at org.gradle.internal.operations.DefaultBuildOperationExecutor.call(DefaultBuildOperationExecutor.java:73)
+	at org.gradle.internal.execution.steps.ExecuteStep.execute(ExecuteStep.java:56)
+	at org.gradle.internal.execution.steps.ExecuteStep.execute(ExecuteStep.java:44)
+	at org.gradle.internal.execution.steps.RemovePreviousOutputsStep.execute(RemovePreviousOutputsStep.java:67)
+	at org.gradle.internal.execution.steps.RemovePreviousOutputsStep.execute(RemovePreviousOutputsStep.java:37)
+	at org.gradle.internal.execution.steps.CancelExecutionStep.execute(CancelExecutionStep.java:41)
+	at org.gradle.internal.execution.steps.TimeoutStep.executeWithoutTimeout(TimeoutStep.java:74)
+	at org.gradle.internal.execution.steps.TimeoutStep.execute(TimeoutStep.java:55)
+	at org.gradle.internal.execution.steps.CreateOutputsStep.execute(CreateOutputsStep.java:50)
+	at org.gradle.internal.execution.steps.CreateOutputsStep.execute(CreateOutputsStep.java:28)
+	at org.gradle.internal.execution.steps.CaptureStateAfterExecutionStep.executeDelegateBroadcastingChanges(CaptureStateAfterExecutionStep.java:100)
+	at org.gradle.internal.execution.steps.CaptureStateAfterExecutionStep.execute(CaptureStateAfterExecutionStep.java:72)
+	at org.gradle.internal.execution.steps.CaptureStateAfterExecutionStep.execute(CaptureStateAfterExecutionStep.java:50)
+	at org.gradle.internal.execution.steps.ResolveInputChangesStep.execute(ResolveInputChangesStep.java:40)
+	at org.gradle.internal.execution.steps.ResolveInputChangesStep.execute(ResolveInputChangesStep.java:29)
+	at org.gradle.internal.execution.steps.BuildCacheStep.executeWithoutCache(BuildCacheStep.java:179)
+	at org.gradle.internal.execution.steps.BuildCacheStep.executeAndStoreInCache(BuildCacheStep.java:139)
+	at org.gradle.internal.execution.steps.BuildCacheStep.lambda$executeWithCache$4(BuildCacheStep.java:106)
+	at org.gradle.internal.execution.steps.BuildCacheStep.lambda$executeWithCache$5(BuildCacheStep.java:106)
+	at org.gradle.internal.Try$Success.map(Try.java:164)
+	at org.gradle.internal.execution.steps.BuildCacheStep.executeWithCache(BuildCacheStep.java:80)
+	at org.gradle.internal.execution.steps.BuildCacheStep.lambda$execute$0(BuildCacheStep.java:69)
+	at org.gradle.internal.Either$Left.fold(Either.java:115)
+	at org.gradle.internal.execution.caching.CachingState.fold(CachingState.java:59)
+	at org.gradle.internal.execution.steps.BuildCacheStep.execute(BuildCacheStep.java:68)
+	at org.gradle.internal.execution.steps.BuildCacheStep.execute(BuildCacheStep.java:46)
+	at org.gradle.internal.execution.steps.StoreExecutionStateStep.execute(StoreExecutionStateStep.java:36)
+	at org.gradle.internal.execution.steps.StoreExecutionStateStep.execute(StoreExecutionStateStep.java:25)
+	at org.gradle.internal.execution.steps.RecordOutputsStep.execute(RecordOutputsStep.java:36)
+	at org.gradle.internal.execution.steps.RecordOutputsStep.execute(RecordOutputsStep.java:22)
+	at org.gradle.internal.execution.steps.SkipUpToDateStep.executeBecause(SkipUpToDateStep.java:91)
+	at org.gradle.internal.execution.steps.SkipUpToDateStep.lambda$execute$2(SkipUpToDateStep.java:55)
 	at org.gradle.internal.execution.steps.SkipUpToDateStep.execute(SkipUpToDateStep.java:55)
 	at org.gradle.internal.execution.steps.SkipUpToDateStep.execute(SkipUpToDateStep.java:37)
 	at org.gradle.internal.execution.steps.ResolveChangesStep.execute(ResolveChangesStep.java:65)
@@ -151,5 +308,5 @@ Caused by: org.jetbrains.kotlin.gradle.tasks.CompilationErrorException: Compilat
 	... 2 more
 
 
-BUILD FAILED in 2m 49s
+BUILD FAILED in 2m 58s
 27 actionable tasks: 25 executed, 2 from cache
