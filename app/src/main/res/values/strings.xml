@@ -19,13 +19,4 @@
     <string name="favorite_removed">已取消收藏</string>
     <string name="secret_prompt">请输入暗号</string>
     <string name="secret_wrong">暗号错误</string>
-
-    <!-- 暗色主题资源 -->
-    <style name="Theme.WallpaperHub" parent="@android:style/Theme.Material.NoActionBar">
-        <item name="android:colorPrimary">#FF6200EE</item>
-        <item name="android:colorPrimaryDark">#FF3700B3</item>
-        <item name="android:colorAccent">#FF03DAC5</item>
-        <item name="android:statusBarColor">#FF000000</item>
-        <item name="android:navigationBarColor">#FF000000</item>
-    </style>
 </resources>
