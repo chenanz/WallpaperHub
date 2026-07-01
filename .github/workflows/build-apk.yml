@@ -8,6 +8,7 @@ on:
 
 permissions:
   contents: write
+  checks: write
 
 jobs:
   build:
@@ -39,38 +40,29 @@ jobs:
         sdkmanager --install "platforms;android-34" "build-tools;34.0.0" "platform-tools"
 
     - name: Build Debug APK
+      id: gradle_build
       run: |
         set -o pipefail
         ./gradlew assembleDebug --no-daemon --stacktrace 2>&1 | tee build_output.log
 
-    - name: List ALL outputs
+    - name: Write build errors to summary
       if: always()
       run: |
-        echo "=== Find APK ==="
-        find . -name "*.apk" -type f 2>/dev/null || echo "NO APK"
-        echo "=== app/build/outputs tree ==="
-        find app/build/outputs -type f 2>/dev/null | head -20 || echo "NO OUTPUTS"
-        echo "=== ENTIRE app/build structure ==="
-        find app/build -maxdepth 4 -type d 2>/dev/null | head -30
+        {
+          echo "## Build Result"
+          echo "Status: ${{ steps.gradle_build.outcome }}"
+          echo ""
+          echo "### Kotlin Compiler Errors"
+          grep -n "e:" build_output.log 2>/dev/null | head -30 || echo "No e: lines found"
+          echo ""
+          echo "### Build Log (last 200 lines)"
+          echo '```'
+          tail -200 build_output.log 2>/dev/null || echo "No log"
+          echo '```'
+        } >> $GITHUB_STEP_SUMMARY
 
-    - name: Upload build log
-      if: always()
-      uses: actions/upload-artifact@v4
-      with:
-        name: build-log
-        path: build_output.log
-        retention-days: 7
-
-    - name: Upload all outputs
-      if: always()
-      uses: actions/upload-artifact@v4
-      with:
-        name: build-outputs
-        path: app/build/outputs/
-        retention-days: 7
-        if-no-files-found: warn
-
-    - name: Upload APK
+    - name: Upload APK artifact
+      if: steps.gradle_build.outcome == 'success'
       uses: actions/upload-artifact@v4
       with:
         name: wallpaperhub-debug-apk
@@ -79,7 +71,7 @@ jobs:
         if-no-files-found: warn
 
     - name: Create GitHub Release with APK
-      if: startsWith(github.ref, 'refs/tags/v')
+      if: startsWith(github.ref, 'refs/tags/v') && steps.gradle_build.outcome == 'success'
       uses: softprops/action-gh-release@v2
       with:
         files: app/build/outputs/apk/**/*.apk
