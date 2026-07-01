@@ -14,3 +14,4 @@ local.properties
 /app/release
 keystore.properties
 *.jks
+CI_DIAGNOSTICS.txt

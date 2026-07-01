@@ -41,45 +41,27 @@ jobs:
     - name: Build Debug APK
       run: ./gradlew assembleDebug --no-daemon --stacktrace 2>&1 | tee build_output.log
 
-    - name: Diagnose
-      if: always()
-      run: |
-        {
-          echo "=== BUILD DIAGNOSTICS ==="
-          echo "Date: $(date)"
-          echo "=== APK Search ==="
-          find . -name "*.apk" -type f 2>/dev/null || echo "NO_APK"
-          echo "=== Kotlin Errors ==="
-          grep -n -E "(e:|w:)" build_output.log 2>/dev/null | head -80 || echo "No error lines"
-          echo "=== Build Log (last 300 lines) ==="
-          tail -300 build_output.log 2>/dev/null || echo "NO_LOG"
-        } > CI_DIAGNOSTICS.txt
-
-    - name: Commit diagnostics back
-      if: always()
-      run: |
-        git config user.name "github-actions[bot]"
-        git config user.email "github-actions[bot]@users.noreply.github.com"
-        git add CI_DIAGNOSTICS.txt 2>/dev/null || true
-        git diff --cached --quiet || git commit -m "ci: diagnostics [skip ci]"
-        git push 2>/dev/null || echo "Push skipped"
-
-    - name: Upload APK artifact
+    - name: Upload build log
       if: always()
       uses: actions/upload-artifact@v4
       with:
+        name: build-log
+        path: build_output.log
+        retention-days: 7
+
+    - name: Upload APK
+      uses: actions/upload-artifact@v4
+      with:
         name: wallpaperhub-debug-apk
-        path: |
-          **/*.apk
+        path: app/build/outputs/apk/**/*.apk
         retention-days: 90
         if-no-files-found: warn
 
-    - name: Upload APK to Release
+    - name: Create GitHub Release with APK
       if: startsWith(github.ref, 'refs/tags/v')
       uses: softprops/action-gh-release@v2
       with:
-        files: |
-          **/*.apk
+        files: app/build/outputs/apk/**/*.apk
         generate_release_notes: true
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
