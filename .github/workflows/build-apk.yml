@@ -49,10 +49,10 @@ jobs:
           echo "Date: $(date)"
           echo "=== APK Search ==="
           find . -name "*.apk" -type f 2>/dev/null || echo "NO_APK"
-          echo "=== Build Dir ==="
-          find app/build -type f 2>/dev/null | head -50 || echo "NO_BUILD_DIR"
-          echo "=== Build Log (last 100 lines) ==="
-          tail -100 build_output.log 2>/dev/null || echo "NO_LOG"
+          echo "=== Kotlin Errors ==="
+          grep -n -E "(e:|w:)" build_output.log 2>/dev/null | head -80 || echo "No error lines"
+          echo "=== Build Log (last 300 lines) ==="
+          tail -300 build_output.log 2>/dev/null || echo "NO_LOG"
         } > CI_DIAGNOSTICS.txt
 
     - name: Commit diagnostics back
@@ -62,9 +62,10 @@ jobs:
         git config user.email "github-actions[bot]@users.noreply.github.com"
         git add CI_DIAGNOSTICS.txt 2>/dev/null || true
         git diff --cached --quiet || git commit -m "ci: diagnostics [skip ci]"
-        git push 2>/dev/null || echo "Push skipped or failed"
+        git push 2>/dev/null || echo "Push skipped"
 
     - name: Upload APK artifact
+      if: always()
       uses: actions/upload-artifact@v4
       with:
         name: wallpaperhub-debug-apk
