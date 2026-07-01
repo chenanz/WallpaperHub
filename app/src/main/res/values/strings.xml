@@ -1,0 +1,31 @@
+<resources>
+    <string name="app_name">WallpaperHub</string>
+    <string name="nav_home">首页</string>
+    <string name="nav_category">分类</string>
+    <string name="nav_favorites">收藏</string>
+    <string name="nav_settings">设置</string>
+    <string name="tab_static">静态壁纸</string>
+    <string name="tab_live">Live Photo</string>
+    <string name="tab_3d">3D 渲染</string>
+    <string name="settings_title">WallpaperHub</string>
+    <string name="settings_theme">主题切换</string>
+    <string name="settings_cache">清理缓存</string>
+    <string name="settings_about">关于</string>
+    <string name="set_wallpaper">设为壁纸</string>
+    <string name="set_wallpaper_home">主屏幕</string>
+    <string name="set_wallpaper_lock">锁屏</string>
+    <string name="set_wallpaper_both">同时设置</string>
+    <string name="favorite_added">已添加收藏</string>
+    <string name="favorite_removed">已取消收藏</string>
+    <string name="secret_prompt">请输入暗号</string>
+    <string name="secret_wrong">暗号错误</string>
+
+    <!-- 暗色主题资源 -->
+    <style name="Theme.WallpaperHub" parent="@android:style/Theme.Material.NoActionBar">
+        <item name="android:colorPrimary">#FF6200EE</item>
+        <item name="android:colorPrimaryDark">#FF3700B3</item>
+        <item name="android:colorAccent">#FF03DAC5</item>
+        <item name="android:statusBarColor">#FF000000</item>
+        <item name="android:navigationBarColor">#FF000000</item>
+    </style>
+</resources>
