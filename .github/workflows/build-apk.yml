@@ -28,52 +28,32 @@ jobs:
       uses: android-actions/setup-android@v3
 
     - name: Generate Gradle Wrapper
-      run: |
-        gradle wrapper --gradle-version 8.5
-        chmod +x gradlew
+      run: gradle wrapper --gradle-version 8.5 && chmod +x gradlew
 
     - name: Create local.properties
       run: echo "sdk.dir=$ANDROID_HOME" > local.properties
 
     - name: Install SDK components
-      run: |
-        sdkmanager --install "platforms;android-34" "build-tools;34.0.0" "platform-tools"
+      run: sdkmanager --install "platforms;android-34" "build-tools;34.0.0" "platform-tools"
 
     - name: Build Debug APK
       continue-on-error: true
       id: build_step
       run: ./gradlew assembleDebug --no-daemon --stacktrace 2>&1 | tee build_output.log
 
-    - name: Post build errors to Issue
+    - name: Post errors to Issue
       if: always()
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: |
-        ERRORS=$(grep -E "^e:|error:|ERROR" build_output.log 2>/dev/null | head -40 || echo "No error lines found")
-        TAIL_LOG=$(tail -80 build_output.log 2>/dev/null || echo "No log available")
-        BUILD_STATUS="${{ steps.build_step.outcome }}"
-        
-        ISSUE_NUMBER=$(gh issue list --repo chenanz/WallpaperHub --label ci-build --limit 1 --json number -q '.[0].number' 2>/dev/null || echo "")
-        
-        if [ -z "$ISSUE_NUMBER" ]; then
-          ISSUE_NUMBER=$(gh issue create --repo chenanz/WallpaperHub --title "CI Build Log" --label "ci-build" --body "Auto-created for build logs" --json number -q '.number' 2>/dev/null || echo "1")
-        fi
-        
-        {
-          echo "## Build Result: ${BUILD_STATUS}"
-          echo ""
-          echo "### Error Lines"
-          echo '```'
-          echo "$ERRORS"
-          echo '```'
-          echo ""
-          echo "### Build Log (last 80 lines)"
-          echo '```'
-          echo "$TAIL_LOG"
-          echo '```'
-        } > /tmp/comment.md
-        
-        gh issue comment "${ISSUE_NUMBER}" --repo chenanz/WallpaperHub --body-file /tmp/comment.md 2>&1 || echo "Failed to post comment"
+        ERRORS=$(grep -E "^e:" build_output.log 2>/dev/null | head -60 || echo "No e: lines")
+        TAIL_LOG=$(tail -100 build_output.log 2>/dev/null || echo "No log")
+        STATUS="${{ steps.build_step.outcome }}"
+        BODY="## Build: ${STATUS}\n\n### Errors\n\`\`\`\n${ERRORS}\n\`\`\`\n\n### Log Tail\n\`\`\`\n${TAIL_LOG}\n\`\`\`"
+        PAYLOAD=$(printf '{"body":"%s"}' "$(echo "$BODY" | sed 's/"/\\"/g' | sed ':a;N;$!ba;s/\n/\\n/g')")
+        curl -s -X POST \
+          -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
+          -H "Accept: application/vnd.github+json" \
+          "https://api.github.com/repos/chenanz/WallpaperHub/issues/1/comments" \
+          -d "$PAYLOAD" || true
 
     - name: Upload APK to Release
       if: startsWith(github.ref, 'refs/tags/v') && steps.build_step.outcome == 'success'

@@ -1,5 +1,6 @@
 package com.wallpaperhub.app.ui.screens
 
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
@@ -17,7 +18,7 @@ import com.wallpaperhub.app.ui.theme.WallpaperHubColors
  * 2. Live Photo (2.5D 动效)
  * 3. 3D 渲染
  */
-@OptIn(ExperimentalMaterial3Api::class)
+@OptIn(ExperimentalMaterial3Api::class, ExperimentalFoundationApi::class)
 @Composable
 fun CategoryScreen(navController: NavController) {
     val tabTitles = listOf("静态壁纸", "Live Photo", "3D 渲染")

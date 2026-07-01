@@ -15,6 +15,7 @@ import com.wallpaperhub.app.ui.theme.WallpaperHubColors
 /**
  * 可复用壁纸卡片组件
  */
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun WallpaperCard(
     wallpaper: WallpaperEntity,

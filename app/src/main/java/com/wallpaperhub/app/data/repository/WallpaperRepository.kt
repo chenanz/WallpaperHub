@@ -1,6 +1,7 @@
 package com.wallpaperhub.app.data.repository
 
 import android.content.Context
+import org.json.JSONArray
 import android.util.Log
 import com.wallpaperhub.app.data.api.ApiClient
 import com.wallpaperhub.app.data.local.AppDatabase

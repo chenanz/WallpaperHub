@@ -2,12 +2,16 @@ package com.wallpaperhub.app.ui.navigation
 
 import android.util.Base64
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Category
+import androidx.compose.material.icons.filled.Favorite
+import androidx.compose.material.icons.filled.Home
+import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavDestination.Companion.hierarchy
-import androidx.navigation.NavGraph.Companion.findNode
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
@@ -33,10 +37,10 @@ object Routes {
 }
 
 sealed class BottomNavItem(val route: String, val label: String, val icon: androidx.compose.ui.graphics.vector.ImageVector) {
-    data object Home : BottomNavItem(Routes.HOME, "首页", androidx.compose.material.icons.Icons.Filled.Home)
-    data object Category : BottomNavItem(Routes.CATEGORY, "分类", androidx.compose.material.icons.Icons.Filled.Category)
-    data object Favorites : BottomNavItem(Routes.FAVORITES, "收藏", androidx.compose.material.icons.Icons.Filled.Favorite)
-    data object Settings : BottomNavItem(Routes.SETTINGS, "设置", androidx.compose.material.icons.Icons.Filled.Settings)
+    data object Home : BottomNavItem(Routes.HOME, "首页", Icons.Filled.Home)
+    data object Category : BottomNavItem(Routes.CATEGORY, "分类", Icons.Filled.Category)
+    data object Favorites : BottomNavItem(Routes.FAVORITES, "收藏", Icons.Filled.Favorite)
+    data object Settings : BottomNavItem(Routes.SETTINGS, "设置", Icons.Filled.Settings)
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
