@@ -24,6 +24,9 @@ import com.wallpaperhub.app.data.repository.WallpaperRepository
 import com.wallpaperhub.app.ui.navigation.Routes
 import com.wallpaperhub.app.ui.theme.WallpaperHubColors
 import kotlinx.coroutines.launch
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.mutableStateOf
 
 /**
  * 首页 - 普通壁纸网格

@@ -18,6 +18,9 @@ import com.wallpaperhub.app.ui.navigation.Routes
 import com.wallpaperhub.app.ui.theme.WallpaperHubColors
 import com.wallpaperhub.app.util.ScreenshotBlocker
 import com.wallpaperhub.app.util.SecretUtils
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.mutableStateOf
 
 /**
  * R18 画廊 - 完全隔离

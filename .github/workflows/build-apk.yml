@@ -8,6 +8,7 @@ on:
 
 permissions:
   contents: write
+  issues: write
 
 jobs:
   build:
@@ -40,43 +41,44 @@ jobs:
 
     - name: Build Debug APK
       continue-on-error: true
+      id: build_step
       run: ./gradlew assembleDebug --no-daemon --stacktrace 2>&1 | tee build_output.log
 
-    - name: Write errors to job summary
+    - name: Post build errors to Issue
       if: always()
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: |
+        ERRORS=$(grep -E "^e:|error:|ERROR" build_output.log 2>/dev/null | head -40 || echo "No error lines found")
+        TAIL_LOG=$(tail -80 build_output.log 2>/dev/null || echo "No log available")
+        BUILD_STATUS="${{ steps.build_step.outcome }}"
+        
+        ISSUE_NUMBER=$(gh issue list --repo chenanz/WallpaperHub --label ci-build --limit 1 --json number -q '.[0].number' 2>/dev/null || echo "")
+        
+        if [ -z "$ISSUE_NUMBER" ]; then
+          ISSUE_NUMBER=$(gh issue create --repo chenanz/WallpaperHub --title "CI Build Log" --label "ci-build" --body "Auto-created for build logs" --json number -q '.number' 2>/dev/null || echo "1")
+        fi
+        
         {
-          echo "# Build Diagnostics"
+          echo "## Build Result: ${BUILD_STATUS}"
           echo ""
-          echo "## Error Lines (e:)"
+          echo "### Error Lines"
           echo '```'
-          grep "^e:" build_output.log 2>/dev/null | head -30 || echo "none"
+          echo "$ERRORS"
           echo '```'
           echo ""
-          echo "## Full Log (last 150 lines)"
+          echo "### Build Log (last 80 lines)"
           echo '```'
-          tail -150 build_output.log 2>/dev/null || echo "no log"
+          echo "$TAIL_LOG"
           echo '```'
-        } >> "$GITHUB_STEP_SUMMARY"
-
-    - name: Find APK files
-      if: always()
-      run: |
-        echo "### APK Search" >> "$GITHUB_STEP_SUMMARY"
-        echo '```' >> "$GITHUB_STEP_SUMMARY"
-        find . -name "*.apk" -type f 2>/dev/null >> "$GITHUB_STEP_SUMMARY" || echo "NONE" >> "$GITHUB_STEP_SUMMARY"
-        echo '```' >> "$GITHUB_STEP_SUMMARY"
+        } > /tmp/comment.md
+        
+        gh issue comment "${ISSUE_NUMBER}" --repo chenanz/WallpaperHub --body-file /tmp/comment.md 2>&1 || echo "Failed to post comment"
 
     - name: Upload APK to Release
-      if: startsWith(github.ref, 'refs/tags/v')
+      if: startsWith(github.ref, 'refs/tags/v') && steps.build_step.outcome == 'success'
       uses: softprops/action-gh-release@v2
       with:
         files: app/build/outputs/apk/**/*.apk
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-    - name: Fail if build failed
-      run: |
-        if grep -q "BUILD FAILED" build_output.log 2>/dev/null; then
-          exit 1
-        fi

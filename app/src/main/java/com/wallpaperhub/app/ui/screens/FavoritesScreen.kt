@@ -16,6 +16,8 @@ import com.wallpaperhub.app.data.local.WallpaperEntity
 import com.wallpaperhub.app.data.repository.WallpaperRepository
 import com.wallpaperhub.app.ui.navigation.Routes
 import com.wallpaperhub.app.ui.theme.WallpaperHubColors
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.mutableStateOf
 
 /**
  * 收藏页面 - 只显示普通壁纸的收藏

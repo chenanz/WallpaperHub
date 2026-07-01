@@ -18,6 +18,9 @@ import com.wallpaperhub.app.data.repository.WallpaperRepository
 import com.wallpaperhub.app.ui.theme.WallpaperHubColors
 import com.wallpaperhub.app.util.WallpaperSetter
 import kotlinx.coroutines.launch
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.mutableStateOf
 
 /**
  * 全屏预览 - 支持设为壁纸

@@ -24,6 +24,8 @@ import com.wallpaperhub.app.ui.navigation.Routes
 import com.wallpaperhub.app.ui.theme.WallpaperHubColors
 import com.wallpaperhub.app.util.SecretUtils
 import kotlinx.coroutines.launch
+import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.mutableStateOf
 
 /**
  * 设置页面 - 含隐藏入口
