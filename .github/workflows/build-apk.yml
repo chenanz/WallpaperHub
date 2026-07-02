@@ -36,42 +36,30 @@ jobs:
       run: sdkmanager --install "platforms;android-34" "build-tools;34.0.0" "platform-tools"
 
     - name: Build Debug APK
-      run: ./gradlew assembleDebug --no-daemon --stacktrace
+      run: ./gradlew assembleDebug --no-daemon
 
-    - name: Dump outputs tree
-      run: |
-        echo "=== app/build/outputs ==="
-        find app/build/outputs -type f 2>/dev/null | head -30
-        echo ""
-        echo "=== ALL .apk files ==="
-        find . -name "*.apk" -type f 2>/dev/null
-        echo ""
-        echo "=== FULL build tree (top 4 levels) ==="
-        find app/build -maxdepth 4 -type d 2>/dev/null | head -40
-
-    - name: Upload APK artifact (debug)
-      uses: actions/upload-artifact@v4
-      with:
-        name: wallpaperhub-debug
-        path: app/build/outputs/apk/debug/*.apk
-        retention-days: 90
-        if-no-files-found: error
-
-    - name: Upload APK artifact (release)
-      uses: actions/upload-artifact@v4
-      with:
-        name: wallpaperhub-release  
-        path: app/build/outputs/apk/release/*.apk
-        retention-days: 90
-        if-no-files-found: warn
-
-    - name: Create Release with debug APK
+    - name: Find APK and Upload to Release
       if: startsWith(github.ref, 'refs/tags/v')
-      uses: softprops/action-gh-release@v2
-      with:
-        files: |
-          app/build/outputs/apk/debug/*.apk
-          app/build/outputs/apk/release/*.apk
-        generate_release_notes: true
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: |
+        APK=$(find app/build/outputs/apk -name "*.apk" -type f | head -1)
+        if [ -z "$APK" ]; then
+          echo "ERROR: No APK found!"
+          exit 1
+        fi
+        echo "Found APK: $APK"
+        ls -la "$APK"
+        
+        # Delete old release
+        gh release delete v1.0.0 -y --repo chenanz/WallpaperHub 2>/dev/null || true
+        
+        # Create new release with APK
+        gh release create v1.0.0 "$APK" \
+          --repo chenanz/WallpaperHub \
+          --title "WallpaperHub v1.0.0" \
+          --notes "Debug APK - first working build" \
+          --target main || {
+            # Fallback: upload to existing release
+            gh release upload v1.0.0 "$APK" --repo chenanz/WallpaperHub --clobber
+          }
