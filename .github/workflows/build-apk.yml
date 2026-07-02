@@ -36,45 +36,42 @@ jobs:
       run: sdkmanager --install "platforms;android-34" "build-tools;34.0.0" "platform-tools"
 
     - name: Build Debug APK
-      id: build
-      continue-on-error: true
-      run: ./gradlew assembleDebug --no-daemon --stacktrace 2>&1 | tee build_output.log
+      run: ./gradlew assembleDebug --no-daemon --stacktrace
 
-    - name: Write errors to summary
-      if: always()
+    - name: Dump outputs tree
       run: |
-        RESULT="${{ steps.build.outcome }}"
-        ERRORS=$(grep -E "^e:" build_output.log 2>/dev/null | head -60 || echo "none")
-        {
-          echo "# Build Result: $RESULT"
-          echo ""
-          echo "### Kotlin Compiler Errors"
-          echo "\`\`\`"
-          echo "$ERRORS"
-          echo "\`\`\`"
-          echo ""
-          echo "### Log Tail"
-          echo "\`\`\`"
-          tail -60 build_output.log 2>/dev/null
-          echo "\`\`\`"
-        } >> "$GITHUB_STEP_SUMMARY"
+        echo "=== app/build/outputs ==="
+        find app/build/outputs -type f 2>/dev/null | head -30
+        echo ""
+        echo "=== ALL .apk files ==="
+        find . -name "*.apk" -type f 2>/dev/null
+        echo ""
+        echo "=== FULL build tree (top 4 levels) ==="
+        find app/build -maxdepth 4 -type d 2>/dev/null | head -40
 
-    - name: Find and upload APK
-      if: steps.build.outcome == 'success'
-      run: |
-        find . -name "*.apk" -type f
-      
-    - name: Fail if build actually failed
-      if: steps.build.outcome != 'success'
-      run: |
-        echo "Gradle build failed - see Step Summary for errors"
-        exit 1
+    - name: Upload APK artifact (debug)
+      uses: actions/upload-artifact@v4
+      with:
+        name: wallpaperhub-debug
+        path: app/build/outputs/apk/debug/*.apk
+        retention-days: 90
+        if-no-files-found: error
 
-    - name: Upload APK to Release
-      if: startsWith(github.ref, 'refs/tags/v') && steps.build.outcome == 'success'
+    - name: Upload APK artifact (release)
+      uses: actions/upload-artifact@v4
+      with:
+        name: wallpaperhub-release  
+        path: app/build/outputs/apk/release/*.apk
+        retention-days: 90
+        if-no-files-found: warn
+
+    - name: Create Release with debug APK
+      if: startsWith(github.ref, 'refs/tags/v')
       uses: softprops/action-gh-release@v2
       with:
-        files: app/build/outputs/apk/**/*.apk
+        files: |
+          app/build/outputs/apk/debug/*.apk
+          app/build/outputs/apk/release/*.apk
         generate_release_notes: true
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
